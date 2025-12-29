@@ -1273,6 +1273,13 @@
             margin: auto;
         }
 
+        /* Mobile optimization for celebration */
+        @media (max-height: 800px) {
+            .celebration-content {
+                padding: 0.5rem 1rem 1.5rem;
+            }
+        }
+
         .celebration-pre {
             font-family: var(--font-hand);
             font-size: clamp(1.2rem, 4vw, 1.5rem);
@@ -1288,6 +1295,13 @@
         .celebration-pre.visible {
             opacity: 0.95;
             transform: translateY(0);
+        }
+
+        @media (max-height: 800px) {
+            .celebration-pre {
+                font-size: clamp(1rem, 3.5vw, 1.3rem);
+                margin-bottom: 0.4rem;
+            }
         }
 
         .celebration-title {
@@ -1309,6 +1323,13 @@
             transform: translateY(0) scale(1);
         }
 
+        @media (max-height: 800px) {
+            .celebration-title {
+                font-size: clamp(1.3rem, 5.5vw, 2.2rem);
+                margin-bottom: 0.2rem;
+            }
+        }
+
         .celebration-name {
             font-family: var(--font-hand);
             font-size: clamp(2.5rem, 10vw, 4.5rem);
@@ -1327,6 +1348,13 @@
             transform: translateY(0) scale(1);
         }
 
+        @media (max-height: 800px) {
+            .celebration-name {
+                font-size: clamp(2rem, 8vw, 3.5rem);
+                margin-bottom: 0.5rem;
+            }
+        }
+
         .portrait-frame {
             position: relative;
             width: clamp(280px, 65vw, 420px);
@@ -1339,6 +1367,14 @@
         .portrait-frame.visible {
             opacity: 1;
             transform: scale(1) rotate(-1.5deg);
+        }
+
+        /* Mobile: smaller portrait to fit with signature */
+        @media (max-height: 800px) {
+            .portrait-frame {
+                width: clamp(200px, 50vw, 300px);
+                margin: 0.5rem auto 0.8rem;
+            }
         }
 
         .portrait-glow {
@@ -1462,6 +1498,14 @@
             transform: translateY(0);
         }
 
+        @media (max-height: 800px) {
+            .celebration-subtitle {
+                font-size: clamp(0.85rem, 2.8vw, 1.1rem);
+                line-height: 1.6;
+                margin-top: 0.3rem;
+            }
+        }
+
         /* Celebration signature */
         .celebration-signature {
             margin-top: 1.5rem;
@@ -1478,6 +1522,15 @@
         .celebration-signature.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Mobile: reduce signature spacing */
+        @media (max-height: 800px) {
+            .celebration-signature {
+                margin-top: 0.5rem;
+                padding-top: 0.8rem;
+                padding-bottom: 0.5rem;
+            }
         }
 
         .signature-name-celebration {
