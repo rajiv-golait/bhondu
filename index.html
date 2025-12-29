@@ -1259,6 +1259,45 @@
             }
         }
 
+        /* Falling Hearts */
+        .hearts-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .falling-heart {
+            position: absolute;
+            font-size: 1.2rem;
+            opacity: 0;
+            will-change: transform, opacity;
+            color: var(--anne-lavender-deep);
+        }
+
+        @keyframes heart-fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 0.9;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(110vh) rotate(180deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
         /* Celebration content */
         .celebration-content {
             position: relative;
@@ -2106,8 +2145,12 @@
                 <div class="balloon blush" style="top: 12%; right: 25%;"></div>
                 <div class="balloon gold" style="top: 8%; left: 50%; transform: translateX(-50%);"></div>
                 
+                
                 <!-- Sparkles container -->
                 <div class="sparkles-container" id="sparkles-container"></div>
+                
+                <!-- Hearts container -->
+                <div class="hearts-container" id="hearts-container"></div>
                 
                 <!-- Confetti container -->
                 <div class="confetti-container" id="confetti-container"></div>
@@ -2250,7 +2293,8 @@
             isTransitioning: false,
             audioPlaying: false,
             audioMuted: false,
-            celebrationShown: false
+            celebrationShown: false,
+            celebrationAudioPending: false
         };
 
         // ========================================
@@ -2293,6 +2337,7 @@
             createPetals();
             createSparkles();
             createConfetti();
+            createHearts();
             createSignaturePetals();
             createCardParticles();
             setupEventListeners();
@@ -2446,6 +2491,28 @@
         }
 
         // ========================================
+        // CREATE HEARTS
+        // ========================================
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts-container');
+            if (!heartsContainer) return;
+            
+            const heartColors = ['#B8A8D8', '#D8D0E8', '#C48B8B', '#D4A5A5'];
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'falling-heart';
+                heart.textContent = '💜';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.fontSize = `${Math.random() * 0.8 + 0.8}rem`;
+                heart.style.animationDuration = `${Math.random() * 8 + 10}s`;
+                heart.style.animationDelay = `${Math.random() * 8}s`;
+                heart.style.animation = `heart-fall ${heart.style.animationDuration} linear infinite ${heart.style.animationDelay}`;
+                heart.style.color = heartColors[Math.floor(Math.random() * heartColors.length)];
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // ========================================
         // CREATE SIGNATURE PETALS
         // ========================================
         function createSignaturePetals() {
@@ -2502,6 +2569,19 @@
 
             // Audio toggle
             elements.audioToggle.addEventListener('click', toggleAudio);
+
+            // Handle pending celebration audio on mobile (user interaction required)
+            elements.celebration.addEventListener('click', () => {
+                if (state.celebrationAudioPending && !state.audioMuted) {
+                    elements.audioCelebration.volume = 0;
+                    elements.audioCelebration.play()
+                        .then(() => {
+                            fadeAudio(elements.audioCelebration, 0, 0.6, 2000);
+                            state.celebrationAudioPending = false;
+                        })
+                        .catch(err => console.log('Audio play failed:', err));
+                }
+            });
 
             // Celebration is now final scene, no tap handler needed
         }
@@ -2951,12 +3031,26 @@
             // Fade out letter music
             fadeAudio(elements.audioLetter, elements.audioLetter.volume, 0, 2000);
 
-            // Fade in celebration music
+            // Fade in celebration music with better mobile support
             setTimeout(() => {
                 if (!state.audioMuted) {
                     elements.audioCelebration.volume = 0;
-                    elements.audioCelebration.play().catch(err => console.log('Audio play failed:', err));
-                    fadeAudio(elements.audioCelebration, 0, 0.6, 2000);
+                    
+                    // Try to play - mobile browsers may require user interaction
+                    const playPromise = elements.audioCelebration.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise
+                            .then(() => {
+                                // Autoplay started successfully
+                                fadeAudio(elements.audioCelebration, 0, 0.6, 2000);
+                            })
+                            .catch(err => {
+                                console.log('Autoplay prevented, will play on user interaction:', err);
+                                // Set flag to play on next user interaction
+                                state.celebrationAudioPending = true;
+                            });
+                    }
                 }
             }, 1000);
         }
