@@ -1276,7 +1276,7 @@
         /* Mobile optimization for celebration */
         @media (max-height: 800px) {
             .celebration-content {
-                padding: 0.5rem 1rem 1.5rem;
+                padding: 0.3rem 0.8rem 1rem;
             }
         }
 
@@ -1299,8 +1299,8 @@
 
         @media (max-height: 800px) {
             .celebration-pre {
-                font-size: clamp(1rem, 3.5vw, 1.3rem);
-                margin-bottom: 0.4rem;
+                font-size: clamp(0.9rem, 3vw, 1.2rem);
+                margin-bottom: 0.2rem;
             }
         }
 
@@ -1325,8 +1325,8 @@
 
         @media (max-height: 800px) {
             .celebration-title {
-                font-size: clamp(1.3rem, 5.5vw, 2.2rem);
-                margin-bottom: 0.2rem;
+                font-size: clamp(1.2rem, 5vw, 2rem);
+                margin-bottom: 0.1rem;
             }
         }
 
@@ -1350,8 +1350,8 @@
 
         @media (max-height: 800px) {
             .celebration-name {
-                font-size: clamp(2rem, 8vw, 3.5rem);
-                margin-bottom: 0.5rem;
+                font-size: clamp(1.8rem, 7vw, 3rem);
+                margin-bottom: 0.3rem;
             }
         }
 
@@ -1372,8 +1372,8 @@
         /* Mobile: smaller portrait to fit with signature */
         @media (max-height: 800px) {
             .portrait-frame {
-                width: clamp(200px, 50vw, 300px);
-                margin: 0.5rem auto 0.8rem;
+                width: clamp(160px, 45vw, 240px);
+                margin: 0.3rem auto 0.5rem;
             }
         }
 
@@ -1407,6 +1407,14 @@
             z-index: 2;
             border-radius: 4px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Mobile: reduce portrait padding */
+        @media (max-height: 800px) {
+            .portrait-img {
+                padding: 12px;
+                padding-bottom: 40px;
+            }
         }
 
         .portrait-frame:hover .portrait-img {
@@ -1458,6 +1466,13 @@
             pointer-events: none;
         }
 
+        /* Mobile: hide flowers to save space */
+        @media (max-height: 800px) {
+            .portrait-flowers {
+                display: none;
+            }
+        }
+
         .portrait-flower {
             position: absolute;
             font-size: 1.3rem;
@@ -1500,9 +1515,10 @@
 
         @media (max-height: 800px) {
             .celebration-subtitle {
-                font-size: clamp(0.85rem, 2.8vw, 1.1rem);
-                line-height: 1.6;
-                margin-top: 0.3rem;
+                font-size: clamp(0.8rem, 2.5vw, 1rem);
+                line-height: 1.5;
+                margin-top: 0.2rem;
+                padding: 0 0.5rem;
             }
         }
 
@@ -1527,9 +1543,9 @@
         /* Mobile: reduce signature spacing */
         @media (max-height: 800px) {
             .celebration-signature {
-                margin-top: 0.5rem;
-                padding-top: 0.8rem;
-                padding-bottom: 0.5rem;
+                margin-top: 0.3rem;
+                padding-top: 0.5rem;
+                padding-bottom: 0.3rem;
             }
         }
 
