@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none" stroke="#c3b1e1" stroke-width="2">
+  <!-- Simple line-art placeholder sketch -->
+  <circle cx="200" cy="150" r="60" opacity="0.6"/>
+  <path d="M150 150 Q140 180 150 210" opacity="0.4"/>
+  <path d="M250 150 Q260 180 250 210" opacity="0.4"/>
+  <path d="M180 190 Q200 200 220 190" opacity="0.5"/>
+  <ellipse cx="180" cy="160" rx="8" ry="12" opacity="0.6"/>
+  <ellipse cx="220" cy="160" rx="8" ry="12" opacity="0.6"/>
+  <!-- Body outline -->
+  <path d="M140 210 L140 320 M260 210 L260 320" opacity="0.4"/>
+  <path d="M140 250 L260 250 M140 320 L200 320 M200 320 L260 320" opacity="0.3"/>
+</svg>
